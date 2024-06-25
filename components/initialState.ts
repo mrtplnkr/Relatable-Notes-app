@@ -1,0 +1,38 @@
+import { NotesState } from './notesReducer';
+
+// Define the initial state using that type
+export const initialState: NotesState = {
+  value: 0,
+  notes: [
+    { parentId: null, id: 4, text: "shopping list", order: 0, dateUpdated: '2024-06-06' },
+    { parentId: 4, id: 41, text: "milk", order: 1, dateUpdated: '2024-06-06' },
+    { parentId: 4, id: 42, text: "bread", order: 2, dateUpdated: '2024-06-06' },
+    { parentId: 42, id: 412, text: 'white', order: 0, dateUpdated: '2024-06-06' },
+    { parentId: 42, id: 413, text: 'dark', order: 1, dateUpdated: '2024-06-06' },
+    { parentId: 4, id: 43, text: "tea", order: 3, dateUpdated: '2024-06-06' },
+    { parentId: null, id: 2, text: "app dev features", order: 1, dateUpdated: '2024-06-06' },
+    { parentId: 2, id: 21, text: "creating new note with children", order: 1, dateUpdated: '2024-06-06' },
+    { parentId: 2, id: 22, text: "update, edit, delete", order: 2, dateUpdated: '2024-06-06' },
+    { parentId: 2, id: 23, text: "provide visualisation", order: 3, dateUpdated: '2024-06-06' },
+    { parentId: null, id: 3, text: "life priorities", order: 2, dateUpdated: '2024-06-06' },
+    { parentId: 3, id: 31, text: "money?", order: 1, dateUpdated: '2024-06-06' },
+    { parentId: 3, id: 32, text: "love", order: 2, dateUpdated: '2024-06-06' },
+    { parentId: 3, id: 33, text: "health", order: 3, dateUpdated: '2024-06-06' },
+    { parentId: 3, id: 34, text: "peace", order: 4, dateUpdated: '2024-06-06' },
+    { parentId: null, id: 5, text: "Travel bucket list", order: 3, dateUpdated: '2024-06-06' },
+    { parentId: 5, id: 51, text: "Thailand", order: 1, dateUpdated: '2024-06-06' },
+    { parentId: 5, id: 52, text: "Turkey", order: 2, dateUpdated: '2024-06-06' },
+    { parentId: 5, id: 53, text: "Sweden", order: 3, dateUpdated: '2024-06-06' },
+    { parentId: 5, id: 54, text: "France", order: 3, dateUpdated: '2024-06-06' },
+    {"id":414,"parentId":null,"text":"Car example", order: 4, url: 'https://audi.com', dateUpdated: '2024-06-06'},
+    {"id":415,"parentId":414,"text":"wheels", order: 1, dateUpdated: '2024-06-06'},
+    {"id":416,"parentId":414,"text":"steering", order: 2, dateUpdated: '2024-06-06'},
+    {"id":417,"parentId":414,"text":"engine", order: 3, dateUpdated: '2024-06-06'},
+    {"id":418,"parentId":414,"text":"headlights", order: 4, dateUpdated: '2024-06-06'},
+    {"id":419,"parentId":417,"text":"cylinders", order: 0, dateUpdated: '2024-06-06'},
+    {"id":420,"parentId":417,"text":"ignition", order: 1, dateUpdated: '2024-06-06'},
+    {"id":421,"parentId":420,"text":"spark plugs", order: 1, dateUpdated: '2024-06-06'},
+    {"id":422,"parentId":420,"text":"coilpack", order: 2, dateUpdated: '2024-06-06'},
+    {"id":423,"parentId":417,"text":"fuel pump", order: 2, dateUpdated: '2024-06-06'},
+  ],
+};

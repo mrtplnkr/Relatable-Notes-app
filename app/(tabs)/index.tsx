@@ -4,8 +4,16 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { ReusableComponent } from '@/components/ReusableComponent';
+import { useAppDispatch, useAppSelector } from '@/components/hooks';
+import { increment } from '@/components/notesReducer';
+import { INote } from '../types';
 
 export default function HomeScreen() {
+
+  const notes = useAppSelector((state) => state.notes.notes);//create RTK selector - only parent notes
+  const dispatch = useAppDispatch();
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -17,8 +25,21 @@ export default function HomeScreen() {
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
+        <button onClick={() => dispatch(increment())}>increment</button>
         <HelloWave />
       </ThemedView>
+      <div style={{'textAlign':'center'}}>
+        {
+          notes.filter(x => x.parentId === null).map((x: INote) => {
+            return <li style={{'border':'1px solid red'}} key={x.id}>
+              <ReusableComponent mainNote={x} size={20} showOptions={0} setShowOptions={function (value: React.SetStateAction<number>): void {
+                  throw new Error('Function not implemented.');
+                } }>
+              </ReusableComponent>      
+            </li>
+          })
+        }
+      </div>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>
