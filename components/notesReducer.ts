@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from './store'
+import { RootState } from '../redux/store'
 import { INote } from '@/app/types';
 import { initialState } from './initialState';
 

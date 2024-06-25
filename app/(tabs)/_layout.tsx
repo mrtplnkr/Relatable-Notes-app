@@ -5,13 +5,11 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { Provider } from 'react-redux';
-import { store } from '@/components/store';
-import { useAppDispatch, useAppSelector } from '@/components/hooks';
+import { store } from '@/redux/store';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
-  
   return (
     <Provider store={store}>
     <Tabs

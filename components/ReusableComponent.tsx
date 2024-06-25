@@ -42,7 +42,7 @@ export const ReusableComponent = (props:IReusableObjectProps) => {
     //     if (highlighted.includes(mainNote.id)) setShowChildren(true);
     // }, [highlighted.length])
 
-    const notes = useAppSelector((state) => state.notes.notes);//create RTK selector - only parent notes
+    const notes = useAppSelector((state) => state.noteReducer.notes);//create RTK selector - only parent notes
 
     const sortByOrder = (notes: INote[]) => {
         return notes.sort((a, b) => compareLatest(a, b, EnumSort.date));

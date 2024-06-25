@@ -8,11 +8,16 @@ import { ReusableComponent } from '@/components/ReusableComponent';
 import { useAppDispatch, useAppSelector } from '@/components/hooks';
 import { increment } from '@/components/notesReducer';
 import { INote } from '../types';
+import { getParents } from '@/redux/selectors/notes';
+import { RootState } from '@/redux/store';
 
 export default function HomeScreen() {
 
-  const notes = useAppSelector((state) => state.notes.notes);//create RTK selector - only parent notes
+  const noteState:RootState = useAppSelector((state) => state);//create RTK selector - only parent notes
+  const parents = getParents(noteState);
   const dispatch = useAppDispatch();
+
+  console.log('res', parents);
 
   return (
     <ParallaxScrollView
@@ -30,7 +35,7 @@ export default function HomeScreen() {
       </ThemedView>
       <div style={{'textAlign':'center'}}>
         {
-          notes.filter(x => x.parentId === null).map((x: INote) => {
+          parents.map((x: INote) => {
             return <li style={{'border':'1px solid red'}} key={x.id}>
               <ReusableComponent mainNote={x} size={20} showOptions={0} setShowOptions={function (value: React.SetStateAction<number>): void {
                   throw new Error('Function not implemented.');
