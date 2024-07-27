@@ -11,7 +11,6 @@ import { ReusableComponent } from '@/components/ReusableComponent';
 import { useCallback } from 'react';
 import { increment } from '@/redux/reducers/countReducer';
 import { getParentIds } from '@/redux/selectors/noteSelector';
-import { useSelector } from 'react-redux';
 
 export default function HomeScreen() {
 
@@ -51,7 +50,7 @@ export default function HomeScreen() {
           parentIds.length && parentIds.map((id: number) => {
             return <View key={id} style={{ borderColor: 'red', borderWidth: 3, margin: 5}}>
               
-              <Button title='lalala' onPress={() => handleClick()}></Button>
+              {/* <Button title='lalala' onPress={() => handleClick()}></Button> */}
               
               <ReusableComponent noteId={id} size={20}>
               </ReusableComponent>

@@ -13,4 +13,10 @@ const getParentIds = createSelector(selectSorted, (notes: INote[]) => {
     const sorted = filtered.sort((a, b) => compareLatest(a, b, EnumSort.date))
     return sorted.map(x => x.id)});
 
-export { getParentIds };
+function getChildren(noteId: number) {
+        createSelector(selectSorted, (notes) => {
+        return notes.filter(x => x.parentId === noteId);
+    })
+}
+
+export { getParentIds, getChildren };

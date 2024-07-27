@@ -32,7 +32,11 @@ export const ReusableComponent = (props:IReusableObjectProps) => {
     const childNotes: INote[] = 
     useAppSelector((state: RootState) => {
         return sortByOrder(state.notesReducer.notes.filter((x:INote) => x.parentId === props.noteId))
-    }, () => true);
+    }, (s, o) => {//todo: checked once added new items
+        // console.log('ss',s, o);
+        
+        return true
+    });
 
     const [text, onChangeText] = React.useState('new');
 
@@ -48,7 +52,7 @@ export const ReusableComponent = (props:IReusableObjectProps) => {
                 <>
                     {<View style={{ borderWidth: 5, borderRadius: 55, padding: 10 }}>
                         <ThemedText style={{ fontSize: props.size -1 }} onPress={() => setShowChildren(x => !x)}>{mainNote?.text}</ThemedText>
-                            <TextInput removeClippedSubviews={false} style={{borderWidth: 3, borderColor: 'green'}} value={text} onChangeText={onChangeText}
+                            <TextInput removeClippedSubviews={false} style={{borderWidth: 3, color: 'green'}} value={text} onChangeText={onChangeText}
                                 onSubmitEditing={(e) => setInput(e)} />
                         {childNotes.length ? showChildren &&
                             childNotes.map((x) => {
