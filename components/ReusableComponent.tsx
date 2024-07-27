@@ -2,12 +2,13 @@ import { INote } from '@/app/types';
 import * as React from 'react';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from './hooks';
-import { EnumSort, compareLatest } from '@/hooks/useHelpers';
+import { useHelpers } from '@/hooks/useHelpers';
 import { View, TextInput, NativeSyntheticEvent, TextInputSubmitEditingEventData } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { updateNote } from '@/redux/reducers/noteReducer';
 import { ThemedText } from './ThemedText';
+import { EnumSort } from '@/hooks/enums';
 
 export interface IReusableObjectProps {
     size: number;
@@ -16,10 +17,11 @@ export interface IReusableObjectProps {
 
 export const ReusableComponent = (props:IReusableObjectProps) => {
 
+    const { compareLatest } = useHelpers();
+
     const [showChildren, setShowChildren] = useState<boolean>(false);
 
     const mainNote = useAppSelector((state) => {
-        console.log('st1', state);
         return state.notesReducer.notes.find(x => x.id === props.noteId)}
     );//create RTK selector - only parent notes
 
@@ -27,9 +29,9 @@ export const ReusableComponent = (props:IReusableObjectProps) => {
         return notes.sort((a, b) => compareLatest(a, b, EnumSort.date));
     };
 
-    const childNotes: INote[] = useSelector((state: RootState) => {
-        console.log('note', state);
-        return state.notesReducer.notes.filter((x:INote) => x.parentId === props.noteId)
+    const childNotes: INote[] = 
+    useAppSelector((state: RootState) => {
+        return sortByOrder(state.notesReducer.notes.filter((x:INote) => x.parentId === props.noteId))
     }, () => true);
 
     const [text, onChangeText] = React.useState('new');

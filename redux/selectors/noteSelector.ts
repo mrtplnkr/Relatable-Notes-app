@@ -1,24 +1,16 @@
-import { useSelector } from "react-redux";
-import { Reducer, createSelector } from "@reduxjs/toolkit";
+import { createSelector } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { INote } from "@/app/types";
-import { State } from "@ngrx/store";
-import notesReducer, { NoteState } from "@/redux/reducers/noteReducer";
-import notesSlice from '../reducers/noteReducer';
-import { useAppSelector } from "@/components/hooks";
+import { useHelpers } from '@/hooks/useHelpers';
+import { EnumSort } from "@/hooks/enums";
 
-// const getState = (state: INote[]) => state.filter(x=>x.parentId === null);
+const { compareLatest } = useHelpers();
 
-const getChildNotes = useSelector((state: RootState) => state.notesReducer);
+const selectSorted = (state: RootState) => state.notesReducer.notes
 
-const getParentNotes = useSelector((state: RootState) =>{
-    console.log('st', state);
-    
-    return state.notesReducer.notes.filter((x:INote)=>x.parentId === null)});
+const getParentIds = createSelector(selectSorted, (notes: INote[]) => {
+    const filtered = notes.filter(x => x.parentId === null);
+    const sorted = filtered.sort((a, b) => compareLatest(a, b, EnumSort.date))
+    return sorted.map(x => x.id)});
 
-//only use create selector for heavy computation or formation of new objects
-// const getParentNotes = createSelector((state: RootState) => state.noteReducer, (s: NoteState) => getState(s.notes));
-
-// const getParentNotes = (state) => state.noteReducer;
-
-export { getParentNotes, getChildNotes };
+export { getParentIds };

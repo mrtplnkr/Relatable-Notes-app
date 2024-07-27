@@ -1,0 +1,1 @@
+export const enum EnumSort { index, date };
