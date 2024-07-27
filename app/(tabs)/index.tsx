@@ -1,23 +1,48 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, Button } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { ReusableComponent } from '@/components/ReusableComponent';
+// import { ReusableComponent } from '@/components/ReusableComponent';
 import { useAppDispatch, useAppSelector } from '@/components/hooks';
-import { increment } from '@/components/notesReducer';
-import { INote } from '../types';
-import { getParents } from '@/redux/selectors/notes';
+import { NoteState } from '@/redux/reducers/noteReducer';
+import { View, Text} from 'react-native';
+import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import { getParentNotes } from '@/redux/selectors/noteSelector';
+import { INote } from '../types';
+import { ReusableComponent } from '@/components/ReusableComponent';
+import { useCallback } from 'react';
+import { increment } from '@/redux/reducers/countReducer';
+// import { getParentNotes, getParents } from '@/redux/selectors/notes';
 
 export default function HomeScreen() {
 
-  const noteState:RootState = useAppSelector((state) => state);//create RTK selector - only parent notes
-  const parents = getParents(noteState);
+  const parentIds = useAppSelector((state: RootState) => {
+    console.log('st', state);
+    
+    return state.notesReducer.notes.filter(x => x.parentId === null).map(x => x.id);
+  });
+  //create RTK selector - only parent notes
+  // const parents = useSelector((state: NoteState) => state.notes);//getParentNotes();//
   const dispatch = useAppDispatch();
 
-  console.log('res', parents);
+  const count = useSelector((state: RootState) => {
+    return state.countReducer.value;
+  });
+
+  function handleClick(): void {
+    dispatch(increment());
+    // console.log('count', count);
+    return;
+  }
+
+  const called = useCallback(() => handleClick(), []);
+
+  // console.log('parents', parents);
+
+  const testArray = [1,1,1,1,1,1];
 
   return (
     <ParallaxScrollView
@@ -30,21 +55,24 @@ export default function HomeScreen() {
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
-        <button onClick={() => dispatch(increment())}>increment</button>
+        <Button title="asd" onPress={() => handleClick()}></Button>
         <HelloWave />
       </ThemedView>
-      <div style={{'textAlign':'center'}}>
+      <View style={{alignItems:'center'}}>
         {
-          parents.map((x: INote) => {
-            return <li style={{'border':'1px solid red'}} key={x.id}>
-              <ReusableComponent mainNote={x} size={20} showOptions={0} setShowOptions={function (value: React.SetStateAction<number>): void {
-                  throw new Error('Function not implemented.');
-                } }>
-              </ReusableComponent>      
-            </li>
+          parentIds.map((id: number) => {
+            return <View key={id} style={{ borderColor: 'red', borderWidth: 3, margin: 5}}>
+              
+              <Button title='lalala' onPress={() => handleClick()}></Button>
+              
+              <HelloWave />
+
+              <ReusableComponent noteId={id} size={20}>
+              </ReusableComponent>
+            </View>
           })
         }
-      </div>
+      </View>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
         <ThemedText>

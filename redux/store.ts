@@ -1,12 +1,16 @@
-import { configureStore } from '@reduxjs/toolkit'
-import notesReducer from '../components/notesReducer'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
+import notesReducer from './reducers/noteReducer'
+import countReducer from './reducers/countReducer'
 // ...
 
+const reducer = combineReducers({
+  notesReducer,
+  countReducer
+});
+
 export const store = configureStore({
-  reducer: {
-    noteReducer: notesReducer,
-  },
-})
+  reducer
+});
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>

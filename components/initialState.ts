@@ -1,8 +1,7 @@
-import { NotesState } from './notesReducer';
+import { NoteState } from '../redux/reducers/noteReducer';
 
 // Define the initial state using that type
-export const initialState: NotesState = {
-  value: 0,
+export const initialState: NoteState = {
   notes: [
     { parentId: null, id: 4, text: "shopping list", order: 0, dateUpdated: '2024-06-06' },
     { parentId: 4, id: 41, text: "milk", order: 1, dateUpdated: '2024-06-06' },
