@@ -17,7 +17,7 @@ export const countSlice = createSlice({
   name: 'count',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState: initialCounter,
-  reducers: {
+  reducers: {    
     increment: (state) => {
       state.value += 1;
     },

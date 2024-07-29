@@ -14,6 +14,8 @@ export const notesSlice = createSlice({
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
     updateNote: (state, action: PayloadAction<{id: number, text: string}>) => {
+      console.log('state', state);
+      
       state.notes = state.notes.map(x => x.id === action.payload.id ? {...x, text: action.payload.text} : x);
     }
   },

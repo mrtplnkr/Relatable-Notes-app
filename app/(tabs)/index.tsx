@@ -1,5 +1,4 @@
 import { Image, StyleSheet, Platform, Button } from 'react-native';
-
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -14,9 +13,8 @@ import { getParentIds } from '@/redux/selectors/noteSelector';
 
 export default function HomeScreen() {
 
-  const parentIds = useAppSelector((s: RootState) => getParentIds(s));
   // create RTK selector - only parent notes
-  // const parents = useSelector((state: NoteState) => state.notes);//getParentNotes();//
+  const parentIds = useAppSelector((state: RootState) => getParentIds(state));//getParentNotes();//
   const dispatch = useAppDispatch();
 
   const count = useAppSelector((state: RootState) => {

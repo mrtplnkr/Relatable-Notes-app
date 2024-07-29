@@ -6,7 +6,7 @@ import { EnumSort } from "@/hooks/enums";
 
 const { compareLatest } = useHelpers();
 
-const selectSorted = (state: RootState) => state.notesReducer.notes
+const selectSorted = (state: RootState) => state.noteReducer.notes
 
 const getParentIds = createSelector(selectSorted, (notes: INote[]) => {
     const filtered = notes.filter(x => x.parentId === null);

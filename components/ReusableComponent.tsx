@@ -22,7 +22,7 @@ export const ReusableComponent = (props:IReusableObjectProps) => {
     const [showChildren, setShowChildren] = useState<boolean>(false);
 
     const mainNote = useAppSelector((state) => {
-        return state.notesReducer.notes.find(x => x.id === props.noteId)}
+        return state.noteReducer.notes.find((x: INote) => x.id === props.noteId)}
     );//create RTK selector - only parent notes
 
     const sortByOrder = (notes: INote[]) => {
@@ -31,7 +31,7 @@ export const ReusableComponent = (props:IReusableObjectProps) => {
 
     const childNotes: INote[] = 
     useAppSelector((state: RootState) => {
-        return sortByOrder(state.notesReducer.notes.filter((x:INote) => x.parentId === props.noteId))
+        return sortByOrder(state.noteReducer.notes.filter((x:INote) => x.parentId === props.noteId))
     }, (s, o) => {//todo: checked once added new items
         // console.log('ss',s, o);
         
