@@ -38,11 +38,11 @@ export const ReusableComponent = (props:IReusableObjectProps) => {
         return true
     });
 
-    const [text, onChangeText] = React.useState('new');
+    const [text, onChangeText] = React.useState('');
 
     const dispatch = useAppDispatch();
     const setInput = (e: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
-        dispatch(updateNote({id: 4, text: (e.target as any).value}));
+        dispatch(updateNote({id: mainNote!.id, text: (e.target as any).value}));
         onChangeText(x => x = '');
     }
 
